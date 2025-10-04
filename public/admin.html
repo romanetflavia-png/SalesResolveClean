@@ -3,76 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Mesaje primite</title>
+  <title>Admin - Messages</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
       padding: 20px;
+      background: #f5f5f5;
     }
     h1 {
       text-align: center;
-      color: #333;
     }
-    .message {
-      background: white;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    #messages {
+      margin-top: 20px;
     }
-    .message strong {
-      color: #007acc;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background: #333;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background: #f2f2f2;
     }
   </style>
 </head>
 <body>
-  <h1>📩 Mesaje primite</h1>
+  <h1>Mesaje primite</h1>
   <div id="messages">Se încarcă...</div>
 
-  <script>
-    async function loadMessages() {
-      try {
-        // Preia mesajele de la backend
-        const response = await fetch("/api/messages", {
-          headers: {
-            // Browserul va cere user+pass când accesezi API-ul
-            "Authorization": "Basic " + btoa(prompt("User:") + ":" + prompt("Parola:"))
-          }
-        });
-
-        if (!response.ok) {
-          document.getElementById("messages").innerText = "Eroare la autentificare!";
-          return;
-        }
-
-        const messages = await response.json();
-        const container = document.getElementById("messages");
-
-        if (messages.length === 0) {
-          container.innerHTML = "<p>Niciun mesaj încă.</p>";
-          return;
-        }
-
-        container.innerHTML = "";
-        messages.forEach(msg => {
-          const div = document.createElement("div");
-          div.className = "message";
-          div.innerHTML = `
-            <p><strong>Nume:</strong> ${msg.name}</p>
-            <p><strong>Email:</strong> ${msg.email}</p>
-            <p><strong>Mesaj:</strong> ${msg.message}</p>
-            <p><em>Trimis la: ${msg.date}</em></p>
-          `;
-          container.appendChild(div);
-        });
-      } catch (err) {
-        console.error(err);
-        document.getElementById("messages").innerText = "Eroare la încărcare.";
-      }
-    }
-
-    loadMessages();
-  </script>
+  <!-- Link către script extern -->
+  <script src="/admin.js"></script>
 </body>
 </html>
