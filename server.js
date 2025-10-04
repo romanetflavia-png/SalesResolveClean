@@ -66,3 +66,6 @@ app.get('*', (req, res) => {
 
 // Pornire server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const fs = require('fs');
+const adminData = JSON.parse(fs.readFileSync('my-site-backend/data/admin.json'));
+console.log(adminData.admin_user);
